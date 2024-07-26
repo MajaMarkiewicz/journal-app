@@ -22,15 +22,27 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-        {children}
+          <div className="h-screen w-screen">
+            <div>
+              <header className="h-[60px] border-b border-black/10">
+                <div className="h-full w-full px-6 flex items-center justify-end">
+                  <SignedOut>
+                    <SignInButton />
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton />
+                  </SignedIn>
+                </div>
+              </header>
+            </div>
+            <div>
+              { children }
+            </div>            
+          </div>
         </body>
       </html>
     </ClerkProvider>
   );
 }
+
+// @todo improve the layoout and make it responsive
