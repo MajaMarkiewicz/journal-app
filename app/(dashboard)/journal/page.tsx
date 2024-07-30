@@ -1,12 +1,12 @@
 import EntryCard from '@/app/components/EntryCard'
 import NewEntryCard from '@/app/components/NewEntryCard'
-// import { getJournalEntriesForAUser } from '@/app/lib/data'
+// import { getJournalEntriesForAUser } from '@/utils/api'
 // import { getUserByClerkId } from '@/utils/auth'
 
 const JournalPage = async () => {
     const entries = []
-    // const { id: userId } = await getUserByClerkId()
-    // const entries = await getJournalEntriesForAUser(userId) // todo I should call db directly instead of hitting API
+    // const { id: userId } = await getUserByClerkId() // @todo uncomment when no error
+    // const entries = await getJournalEntriesForAUser(userId) // @todo I should call db directly instead of hitting API
 
     return (
     <div className='p-10 bg-zinc-500/10'>

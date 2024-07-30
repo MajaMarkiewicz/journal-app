@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
         const body: UserApiPost = await req.json();  
         if (body.clerkId) {  
             const user = await User.create(body);  
-            return NextResponse.json(  
-                { user, message: 'Your user has been created' },  
+            return NextResponse.json(
+                { data: user, message: 'Your user has been created' },  
                 { status: HttpStatusCode.Created },
             );  
         }  

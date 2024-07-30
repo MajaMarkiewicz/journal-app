@@ -18,9 +18,8 @@ export interface JournalEntryType {
 }  
 
 export interface JournalEntryApiPost {
-    userId: string;
     tittle: string;
     content: string;
     category: Category;
-    additionalCategory: Category;
+    additionalCategory?: Category;
 }
