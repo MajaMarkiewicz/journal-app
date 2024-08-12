@@ -1,5 +1,5 @@
 export interface UserApiGet {  
-    id: string;
+    _id: string;
     clerkId: string;
     email: string;
     createdAt: Date,

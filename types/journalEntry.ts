@@ -6,20 +6,20 @@ export enum Category {
     Journal = 'Journal',
 }
 
-export interface JournalEntryType {  
-    id: string;
+export interface JournalEntryApiGet {  
+    _id: string;
     createdAt: Date;
     updatedAt: Date;
     userId: string;
-    tittle: string;  
-    content: string;  
+    title: string;  
+    content?: string;  
     category: Category;  
-    additionalCategory: Category;
+    additionalCategory?: Category;
 }  
 
 export interface JournalEntryApiPost {
-    tittle: string;
-    content: string;
+    title: string;
+    content?: string;
     category: Category;
     additionalCategory?: Category;
 }
