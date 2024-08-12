@@ -1,6 +1,6 @@
 import { HttpStatusCode } from 'axios';  
-import connectMongo from '@/db/connect-mongo';  
-import User from '@/db/models/user';  
+import connectMongo from '@/utils/connect-mongo';  
+import User from '@/models/User';  
 import { UserApiPost } from '@/types/user';
 import { NextRequest, NextResponse } from 'next/server';  
   

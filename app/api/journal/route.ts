@@ -1,5 +1,5 @@
-import connectMongo from "@/db/connect-mongo"
-import JournalEntry from "@/db/models/journalEntry"
+import connectMongo from "@/utils/connect-mongo"
+import JournalEntry from "@/models/JournalEntry"
 import { JournalEntryApiPost } from "@/types/journalEntry"
 import { getUserByClerkId } from "@/utils/auth"
 import { HttpStatusCode } from "axios"

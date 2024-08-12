@@ -1,5 +1,5 @@
 import TextEditor from "@/app/components/TextEditor";
-import JournalEntry from "@/db/models/journalEntry";
+import JournalEntry from "@/models/JournalEntry";
 import { Category } from "@/types/journalEntry";
 import { getUserByClerkId } from "@/utils/auth";
 

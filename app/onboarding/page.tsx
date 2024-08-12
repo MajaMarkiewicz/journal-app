@@ -1,5 +1,5 @@
-import connectMongo from "@/db/connect-mongo"
-import User from "@/db/models/user"
+import connectMongo from "@/utils/connect-mongo"
+import User from "@/models/User"
 import { currentUser } from "@clerk/nextjs/server"
 import Link from "next/link"
 import { redirect } from "next/navigation"

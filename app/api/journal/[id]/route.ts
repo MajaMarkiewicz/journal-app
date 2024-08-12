@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import JournalEntry from "@/db/models/journalEntry"
+import JournalEntry from "@/models/JournalEntry"
 import { getUserByClerkId } from "@/utils/auth"
 
 export const PATCH = async (request, { params }) => {

@@ -1,4 +1,4 @@
-export interface UserType {  
+export interface UserApiGet {  
     id: string;
     clerkId: string;
     email: string;
