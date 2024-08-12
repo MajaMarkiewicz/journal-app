@@ -13,8 +13,10 @@ const EditEntryPage = async ({ params }) => {
     // const entry = await getEntry(params.id)
     const entry = {title: 'asad', content: 'asdasd',category: Category.Safety, id: params.id}
     return (
-        <div>
-            <TextEditor entry={entry} />
+        <div className="h-full w-full grid grid-cols-3">
+            <div className="col-span-2">
+                <TextEditor entry={entry} />
+            </div>
         </div>
     );
 }
