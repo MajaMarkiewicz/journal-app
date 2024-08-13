@@ -12,7 +12,7 @@ const TextEditor = ({ entry }) => {
         data: value,
         onSave: async (newValue) => {
             setIsLoading(true)
-            // await updateJournalEntry(entry.id, newValue) // @todo uncomment when patch works correctly
+            // await updateJournalEntry(entry.id, newValue) // @todo db  - uncomment when patch works correctly
             setIsLoading(false)
         },
     })

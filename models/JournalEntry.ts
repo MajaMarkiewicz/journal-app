@@ -2,7 +2,7 @@ import { model, models, Schema } from 'mongoose';
 import { JournalEntryApiGet, Category } from '@/types/journalEntry';
 
 const JournalEntrySchema = new Schema<JournalEntryApiGet>({
-    userId: { // @TODO fix type mismatch
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
@@ -25,10 +25,5 @@ const JournalEntrySchema = new Schema<JournalEntryApiGet>({
 },  {  timestamps: true, 
 })
 
-const JournalEntry = models.JournalEntry || model('JournalEntry', JournalEntrySchema);  
-export default JournalEntry;
-
-// Get all posts for a user:
-// const userPosts = await JournalEntry.find({ userId: user._id });
-// Get a specific post by id and userId:
-// const post = await JournalEntry.findOne({ _id: postId, userId: user._id });
+const JournalEntry = models.JournalEntry || model('JournalEntry', JournalEntrySchema)
+export default JournalEntry

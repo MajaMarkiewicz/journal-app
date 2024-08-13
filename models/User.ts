@@ -5,7 +5,7 @@ const UserSchema = new Schema<UserApiGet>({
     clerkId: String,
     email: { 
         type: String, 
-        unique: true, // @TODO handle error when email not unique
+        unique: true, // @TODO db - handle error when email not unique
         required: [true, 'Email is required']
     }
 }, {
