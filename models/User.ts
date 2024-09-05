@@ -1,11 +1,11 @@
 import { model, models, Schema } from 'mongoose';  
-import { UserApiGet } from '@/types/user';
+import type { UserApiPost } from '@/types/user';
 
-const UserSchema = new Schema<UserApiGet>({
+const UserSchema = new Schema<UserApiPost>({
     clerkId: String,
     email: { 
         type: String, 
-        unique: true, // @TODO db - handle error when email not unique
+        unique: true,
         required: [true, 'Email is required']
     }
 }, {

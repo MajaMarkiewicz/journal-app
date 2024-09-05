@@ -1,4 +1,4 @@
-import { JournalEntryApiPost } from "@/types/journalEntry"
+import type { JournalEntryApiPost } from "@/types/journalEntry"
 
 const createURL = path => {
     return window.location.origin + path
@@ -6,7 +6,7 @@ const createURL = path => {
 // @todo db - do I need these functions
 // @todo db - check if all db actions work
 
-// @todo improvement - handle errors in all the utis/api functions below
+// @todo improvement - handle errors in all the utils/api functions below
 
 export const createNewEntry = async (body: JournalEntryApiPost) => {
     const res = await fetch(new Request (createURL('/api/journal'), {
@@ -17,7 +17,7 @@ export const createNewEntry = async (body: JournalEntryApiPost) => {
     return await res.json()
 }
 
-export const updateJournalEntry = async (id: String, content) => {
+export const updateJournalEntry = async (id: string, content) => {
     const res = await fetch(new Request(createURL(`/api/journal/${id}`), {
         method: 'PATCH',
         body: JSON.stringify(content),

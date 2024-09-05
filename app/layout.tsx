@@ -45,4 +45,4 @@ export default function RootLayout({
   );
 }
 
-// @todo style - improve the layoout and make it responsive
+// @todo style - improve the layout and make it responsive

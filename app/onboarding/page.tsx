@@ -1,7 +1,6 @@
 import connectMongo from "@/utils/connect-mongo"
 import User from "@/models/User"
 import { currentUser } from "@clerk/nextjs/server"
-import Link from "next/link"
 import { redirect } from "next/navigation"
 
 const createNewUser = async () => {
@@ -10,10 +9,16 @@ const createNewUser = async () => {
   const user = await currentUser()
   if (!user) redirect ("/sign-in")
   
-  const { id: clerkId, primaryEmailAddress } = user
+  const { id: clerkId } = user
+  const email = user.emailAddresses[0].emailAddress
   const isUserCreated = await User.exists({ clerkId })
   if (!isUserCreated) {
-    await User.create({ clerkId, email: primaryEmailAddress })
+    try {
+      await User.create({ clerkId, email })
+      console.log("User created, email: ", email)
+    } catch(e) {
+      console.error("Error while creating user: ", e)
+    }
   }
 }
 
