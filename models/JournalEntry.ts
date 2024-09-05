@@ -1,7 +1,7 @@
-import { model, models, Schema } from 'mongoose';
-import { JournalEntryApiGet, Category } from '@/types/journalEntry';
+import { model, models, Schema, type Types } from 'mongoose';
+import { type JournalEntryApiGet, Category } from '@/types/journalEntry';
 
-const JournalEntrySchema = new Schema<JournalEntryApiGet>({
+const JournalEntrySchema = new Schema<Omit<JournalEntryApiGet, 'userId'> & { userId: Types.ObjectId }>({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -21,6 +21,7 @@ const JournalEntrySchema = new Schema<JournalEntryApiGet>({
         type: String,
         enum: Object.values(Category),
         required: false,
+        default: undefined
     },
 },  {  timestamps: true, 
 })

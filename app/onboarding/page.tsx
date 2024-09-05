@@ -22,7 +22,7 @@ const createNewUser = async () => {
   }
 }
 
-//@todo feature - make redirection, make loader and delete unnecessary html
+//@todo feature - make redirection, make loader
 
 const Onboarding = async () => { 
     await createNewUser()

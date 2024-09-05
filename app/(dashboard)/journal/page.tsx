@@ -16,8 +16,6 @@ const JournalPage = async () => {
         <h2 className='text-3xl mb-8'>Journal</h2>
         <div className='grid grid-cols-3 gap-4 p-10'>
             <NewEntryCard />
-            {// @todo feature - decide if editing and adding an entry should be in the new page or in the modal 
-            }
             {entries.map(entry => 
                 <Link key={entry.id} href={`/journal/${entry.id}`}>
                     <EntryCard entry={entry} />
