@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const MONGO_URI = process.env.MONGO_URI
-let connected: Boolean = false
+let connected = false
 
 async function connectMongo() {
   if (!MONGO_URI) {

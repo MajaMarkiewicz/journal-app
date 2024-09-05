@@ -1,8 +1,8 @@
 import { HttpStatusCode } from 'axios'
 import connectMongo from '@/utils/connect-mongo'
 import User from '@/models/User'
-import { UserApiPost } from '@/types/user'
-import { NextRequest, NextResponse } from 'next/server'
+import type { UserApiPost } from '@/types/user'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
   try {
