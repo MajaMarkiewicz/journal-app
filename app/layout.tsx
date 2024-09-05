@@ -1,17 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 import {
   ClerkProvider,
   SignInButton,
   SignedIn,
   SignedOut,
-  UserButton
+  UserButton,
 } from '@clerk/nextjs'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: "Your journal",
-  description: "Sum up your day focusing on reasons to be grateful and satisfied.",
-};
+  title: 'Your journal',
+  description:
+    'Sum up your day focusing on reasons to be grateful and satisfied.',
+}
 
 export default function RootLayout({
   children,
@@ -35,14 +36,12 @@ export default function RootLayout({
                 </div>
               </header>
             </div>
-            <div>
-              { children }
-            </div>            
+            <div>{children}</div>
           </div>
         </body>
       </html>
     </ClerkProvider>
-  );
+  )
 }
 
 // @todo style - improve the layout and make it responsive
