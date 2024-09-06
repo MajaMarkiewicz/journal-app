@@ -11,7 +11,10 @@ export default function Home() {
         </p>
         <div>
           <Link href="/journal">
-            <button className="bg-blue-900 px-4 py-2 rounded-lg text-xl">
+            <button
+              type="button"
+              className="bg-blue-900 px-4 py-2 rounded-lg text-xl"
+            >
               Get started
             </button>
           </Link>
