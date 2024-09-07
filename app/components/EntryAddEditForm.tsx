@@ -17,6 +17,8 @@ const emptyEntry: JournalEntryApiGet = {
   userId: '',
   title: '',
   category: Category.Journal,
+  content: '',
+  additionalCategory: undefined,
 }
 
 const EntryAddEditForm: React.FC<PropertyFormProps> = ({
@@ -48,7 +50,9 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
       <h2 className="text-3xl text-center font-semibold mb-6">{text}</h2>
 
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Title</label>
+        <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
+          Title
+        </label>
         <input
           type="text"
           id="title"
@@ -125,6 +129,7 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           type="submit"
+          data-testid="submit-button"
           disabled={isLoading}
         >
           {isLoading ? 'Saving...' : text}
