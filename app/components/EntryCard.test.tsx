@@ -4,7 +4,7 @@ import EntryCard from '@/app/components/EntryCard'
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
 
 describe('EntryCard Component', () => {
-  it('renders entry content correctly', () => {
+  it('Given entry card with filled entry, then entry content correctly', () => {
     // GIVEN
     const mockEntry = {
       userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',
@@ -15,7 +15,6 @@ describe('EntryCard Component', () => {
       content: 'Focus on personal growth and career development.',
     } as JournalEntryApiGet
 
-    // WHEN
     render(<EntryCard entry={mockEntry} />)
 
     // THEN
@@ -32,7 +31,7 @@ describe('EntryCard Component', () => {
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })
 
-  it('renders entry content correctly when there is no additional category', () => {
+  it('Given entry card with entry without additional category, then entry content correctly', () => {
     // GIVEN
     const mockEntry = {
       userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',
@@ -43,7 +42,6 @@ describe('EntryCard Component', () => {
       content: 'Focus on personal growth and career development.',
     } as JournalEntryApiGet
 
-    // WHEN
     render(<EntryCard entry={mockEntry} />)
 
     // THEN
@@ -53,7 +51,7 @@ describe('EntryCard Component', () => {
     expect(
       screen.getByText(`Main category: ${mockEntry.category}`),
     ).toBeInTheDocument()
-    expect(screen.queryByText('Additional category:')).toBeNull() // Check that additional category is not rendered
+    expect(screen.queryByText('Additional category:')).toBeNull()
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })

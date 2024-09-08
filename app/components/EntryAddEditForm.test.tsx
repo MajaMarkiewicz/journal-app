@@ -4,18 +4,20 @@ import EntryAddEditForm from './EntryAddEditForm' // Adjust import path as neces
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
 
 describe('EntryAddEditForm Component', () => {
-  it('#1 renders form with default values when no entry is provided', () => {
+  it('#1 Given component without entry, then render empty form with default category', () => {
     const mockAction = vi.fn()
 
+    // GIVEN
     render(<EntryAddEditForm action={mockAction} text="Add Entry" />)
 
+    // THEN
     expect(screen.getByLabelText('Title')).toHaveValue('')
     expect(screen.getByLabelText('Description')).toHaveValue('')
     expect(screen.getByLabelText('Category')).toHaveValue(Category.Journal)
     expect(screen.getByLabelText('Additional Category')).toHaveValue('')
   })
 
-  it('#2 renders form with provided entry values', () => {
+  it('#2 Given component with entry, then render form with provided values', () => {
     const mockEntry: JournalEntryApiGet = {
       _id: '1',
       createdAt: new Date(),
@@ -28,6 +30,7 @@ describe('EntryAddEditForm Component', () => {
     }
     const mockAction = vi.fn()
 
+    // GIVEN
     render(
       <EntryAddEditForm
         entry={mockEntry}
@@ -36,6 +39,7 @@ describe('EntryAddEditForm Component', () => {
       />,
     )
 
+    // THEN
     expect(screen.getByLabelText('Title')).toHaveValue(mockEntry.title)
     expect(screen.getByLabelText('Description')).toHaveValue(mockEntry.content)
     expect(screen.getByLabelText('Category')).toHaveValue(mockEntry.category)
@@ -44,41 +48,53 @@ describe('EntryAddEditForm Component', () => {
     )
   })
 
-  it('#3 submits form data correctly', async () => {
+  it('#3 Given component, when user fills the form and clicks submit, then submit form data correctly', async () => {
+    const title  = 'New Title'
+    const content = 'New Content'
+    const category = Category.Safety
+    const additionalCategory = Category.Connection
+
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('category', category)
+    formData.append('additionalCategory', additionalCategory)
+    
     const mockAction = vi.fn().mockResolvedValue(undefined)
+
+    // GIVEN
     render(<EntryAddEditForm action={mockAction} text="Submit" />)
 
+    // WHEN
     fireEvent.change(screen.getByLabelText('Title'), {
-      target: { value: 'New Title' },
+      target: { value: title },
     })
     fireEvent.change(screen.getByLabelText('Description'), {
-      target: { value: 'New Content' },
+      target: { value: content },
     })
     fireEvent.change(screen.getByLabelText('Category'), {
-      target: { value: 'Safety' },
+      target: { value: category },
     })
     fireEvent.change(screen.getByLabelText('Additional Category'), {
-      target: { value: 'Connection' },
+      target: { value: additionalCategory },
     })
 
     fireEvent.click(screen.getByTestId('submit-button'))
 
-    const formData = new FormData()
-    formData.append('title', 'New Title')
-    formData.append('content', 'New Content')
-    formData.append('category', 'Safety')
-    formData.append('additionalCategory', 'Connection')
-
+    // THEN
     expect(mockAction).toHaveBeenCalledWith(formData)
   })
-  it('#4 disables submit button and shows loading state when submitting', async () => {
+  it('#4 Given component, when form is submitted, then disable submit button and show loading state', async () => {
     const mockAction = vi
       .fn()
       .mockImplementation(
         () => new Promise((resolve) => setTimeout(resolve, 1000)),
       )
+    
+    // GIVEN
     render(<EntryAddEditForm action={mockAction} text="Submit" />)
 
+    // WHEN
     fireEvent.change(screen.getByLabelText('Title'), {
       target: { value: 'Title' },
     })
@@ -88,7 +104,8 @@ describe('EntryAddEditForm Component', () => {
 
     fireEvent.click(screen.getByTestId('submit-button'))
 
-    expect(screen.getByText('Saving...')).toBeInTheDocument()
+    // THEN
     expect(screen.getByTestId('submit-button')).toBeDisabled()
+    expect(screen.getByText('Saving...')).toBeInTheDocument()
   })
 })

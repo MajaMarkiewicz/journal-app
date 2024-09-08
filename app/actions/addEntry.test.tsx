@@ -6,6 +6,7 @@ import { getUserByClerkId } from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import type { UserApiGet } from '@/types/user'
+import { Category } from '@/types/journalEntry'
 
 vi.mock('@/utils/connect-mongo', () => ({
   default: vi.fn(),
@@ -27,14 +28,19 @@ vi.mock('next/navigation', () => ({
   redirect: vi.fn(),
 }))
 
-describe('addEntry', () => {
+describe('addEntry action', () => {
   const mockUser = { _id: 'user123' }
 
+  const title = 'Test Title'
+  const description = 'Test Description'
+  const category = Category.Satisfaction
+  const additionalCategory = Category.Connection
+
   const mockFormData = new FormData()
-  mockFormData.append('title', 'Test Title')
-  mockFormData.append('content', 'Test Content')
-  mockFormData.append('category', 'work')
-  mockFormData.append('additionalCategory', 'personal')
+  mockFormData.append('title', title)
+  mockFormData.append('content', description)
+  mockFormData.append('category', category)
+  mockFormData.append('additionalCategory', additionalCategory)
 
   beforeEach(() => {
     vi.resetAllMocks()
@@ -52,19 +58,21 @@ describe('addEntry', () => {
     expect(getUserByClerkId).toHaveBeenCalled()
     expect(JournalEntry).toHaveBeenCalledWith({
       userId: mockUser._id,
-      title: 'Test Title',
-      content: 'Test Content',
-      category: 'work',
-      additionalCategory: 'personal',
+      title,
+      content: description,
+      category,
+      additionalCategory,
     })
     expect(revalidatePath).toHaveBeenCalledWith('/')
     expect(redirect).toHaveBeenCalledWith('/journal')
   })
 
-  it('#2 should throw an error if the user is not found', async () => {
+  it('#2 When the user is not found, then throw error', async () => {
+    // WHEN
     // @ts-expect-error
     vi.mocked(getUserByClerkId).mockResolvedValueOnce(null)
 
+    // THEN
     await expect(addEntry(mockFormData)).rejects.toThrowError('User.id is missing')
 
     expect(connectMongo).toHaveBeenCalled()

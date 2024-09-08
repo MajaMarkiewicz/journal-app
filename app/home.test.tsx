@@ -44,14 +44,13 @@ describe('Home Tests', () => {
     // GIVEN
     render(<Page />)
 
-    // THEN
     const link = screen.getByRole('link', { name: 'Get started' })
-    expect(link).toHaveAttribute('href', '/journal')
 
     // WHEN
     fireEvent.click(link)
 
     // THEN
     expect(link).toBeTruthy()
+    expect(link).toHaveAttribute('href', '/journal')
   })
 })
