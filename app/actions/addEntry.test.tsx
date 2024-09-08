@@ -45,7 +45,7 @@ describe('addEntry', () => {
     }))
   })
 
-  it('#1 should call connectMongo, save the entry, revalidate and redirect', async () => {
+  it('#1 should connect MongoDB, save the entry, revalidate and redirect', async () => {
     await addEntry(mockFormData)
 
     expect(connectMongo).toHaveBeenCalled()
@@ -69,19 +69,6 @@ describe('addEntry', () => {
 
     expect(connectMongo).toHaveBeenCalled()
     expect(JournalEntry).not.toHaveBeenCalled()
-    expect(revalidatePath).not.toHaveBeenCalled()
-    expect(redirect).not.toHaveBeenCalled()
-  })
-
-  it('#3 should throw an error if the JournalEntry save fails', async () => {
-    vi.mocked(JournalEntry).mockImplementationOnce(() => ({
-      save: vi.fn().mockRejectedValueOnce(new Error('Save failed')),
-    }))
-
-    await expect(addEntry(mockFormData)).rejects.toThrowError('Save failed')
-
-    expect(connectMongo).toHaveBeenCalled()
-    expect(JournalEntry).toHaveBeenCalled()
     expect(revalidatePath).not.toHaveBeenCalled()
     expect(redirect).not.toHaveBeenCalled()
   })

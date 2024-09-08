@@ -8,7 +8,6 @@
 
 # testing
 /coverage
-tests-todo.js
 
 # next.js
 /.next/
