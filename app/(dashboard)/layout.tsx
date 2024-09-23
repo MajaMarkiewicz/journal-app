@@ -17,5 +17,3 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 }
 
 export default DashboardLayout
-
-// @todo style - make the layout responsive

@@ -22,26 +22,23 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <div className="h-screen w-screen">
-            <div>
-              <header className="h-[60px] border-b border-black/10">
-                <div className="h-full w-full px-6 flex items-center justify-end">
-                  <SignedOut>
-                    <SignInButton />
-                  </SignedOut>
-                  <SignedIn>
-                    <UserButton />
-                  </SignedIn>
-                </div>
-              </header>
+        <body className="min-h-screen flex flex-col overflow-hidden">
+          <header className="h-[60px] w-full bg-white border-b border-black/10 fixed top-0 left-0 z-10">
+            <div className="h-full w-full px-6 flex items-center justify-end">
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
-            <div>{children}</div>
-          </div>
+          </header>
+
+          <main className="flex-grow mt-[60px]">
+            {children}
+          </main>
         </body>
       </html>
     </ClerkProvider>
   )
 }
-
-// @todo style - improve the layout and make it responsive
