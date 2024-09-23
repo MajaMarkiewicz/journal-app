@@ -13,7 +13,9 @@ const JournalPage = async () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-red-400/50 p-4">
-      <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900">Your Wellbeing Journal</h2>
+      <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900 text-center">
+        Your Wellbeing Journal
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <NewEntryCard />
         {entries.map((entry) => (
