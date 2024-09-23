@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 const NewEntryCard = () => {
   return (
-    <div className="cursor-pointer overflow-hidden rounded-lg bg-white shadow">
-      <Link href="journal/add" className="px-4 py-5 sm:p-6">
-        <span className="text-3xl">New entry</span>
+    <div className="cursor-pointer overflow-hidden rounded-lg bg-white shadow p-4 sm:p-6">
+      <Link href="journal/add">
+        <span className="text-xl sm:text-2xl">New entry</span>
       </Link>
     </div>
   )
