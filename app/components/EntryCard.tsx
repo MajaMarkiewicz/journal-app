@@ -1,22 +1,27 @@
 import type { JournalEntryApiGet } from '@/types/journalEntry'
 
 const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
-  const date = new Date(entry.createdAt).toDateString() // @todo style - choose date format
+  const date = new Date(entry.createdAt).toDateString()
+
   return (
-    <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow-lg">
-      <div className="px-4 py-2 text-sm text-gray-500">{date}</div>
-      <div className="px-4 py-2">
-        <div className="text-gray-700 text-sm">
-          Main category: {entry.category}
+    <div className="flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow-lg h-full">
+      <div className="flex justify-between items-center px-4 py-2 text-sm text-gray-500 h-12">
+        <div className="flex flex-col">
+          <strong className="text-gray-700 text-sm">
+            {entry.category}
+          </strong>
+          {entry.additionalCategory && (
+            <div className="text-gray-500 text-sm">
+              {entry.additionalCategory}
+            </div>
+          )}
         </div>
-        {entry.additionalCategory && (
-          <div className="text-gray-500 text-sm">
-            Additional category: {entry.additionalCategory}
-          </div>
-        )}
+        <div className="flex-shrink-0">{date}</div>
       </div>
-      <strong className="px-4 py-2 block text-lg">{entry.title}</strong>
-      <div className="px-4 py-2 text-gray-600">{entry.content}</div>
+      <strong className="px-4 py-2 block text-lg text-blue-900">{entry.title}</strong>
+      <div className="px-4 py-2 text-gray-600 flex-grow flex">
+        <p className="line-clamp-5 overflow-hidden flex-grow">{entry.content}</p>
+      </div>
     </div>
   )
 }
