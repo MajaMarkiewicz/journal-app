@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import EntryAddEditForm from './EntryAddEditForm' // Adjust import path as necessary
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
@@ -66,24 +66,27 @@ describe('EntryAddEditForm Component', () => {
     render(<EntryAddEditForm action={mockAction} text="Submit" />)
 
     // WHEN
-    fireEvent.change(screen.getByLabelText('Title'), {
-      target: { value: title },
-    })
-    fireEvent.change(screen.getByLabelText('Description'), {
-      target: { value: content },
-    })
-    fireEvent.change(screen.getByLabelText('Category'), {
-      target: { value: category },
-    })
-    fireEvent.change(screen.getByLabelText('Additional Category'), {
-      target: { value: additionalCategory },
-    })
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Title'), {
+        target: { value: title },
+      })
+      fireEvent.change(screen.getByLabelText('Description'), {
+        target: { value: content },
+      })
+      fireEvent.change(screen.getByLabelText('Category'), {
+        target: { value: category },
+      })
+      fireEvent.change(screen.getByLabelText('Additional Category'), {
+        target: { value: additionalCategory },
+      })
 
-    fireEvent.click(screen.getByTestId('submit-button'))
+      fireEvent.click(screen.getByTestId('submit-button'))
+    })
 
     // THEN
     expect(mockAction).toHaveBeenCalledWith(formData)
   })
+
   it('#4 Given component, when form is submitted, then disable submit button and show loading state', async () => {
     const mockAction = vi
       .fn()
@@ -95,14 +98,16 @@ describe('EntryAddEditForm Component', () => {
     render(<EntryAddEditForm action={mockAction} text="Submit" />)
 
     // WHEN
-    fireEvent.change(screen.getByLabelText('Title'), {
-      target: { value: 'Title' },
-    })
-    fireEvent.change(screen.getByLabelText('Description'), {
-      target: { value: 'Content' },
-    })
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText('Title'), {
+        target: { value: 'Title' },
+      })
+      fireEvent.change(screen.getByLabelText('Description'), {
+        target: { value: 'Content' },
+      })
 
-    fireEvent.click(screen.getByTestId('submit-button'))
+      fireEvent.click(screen.getByTestId('submit-button'))
+    })
 
     // THEN
     expect(screen.getByTestId('submit-button')).toBeDisabled()
