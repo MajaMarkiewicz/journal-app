@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss'
-import lineClamp from '@tailwindcss/line-clamp'
+import type { Config } from 'tailwindcss';
+import lineClamp from '@tailwindcss/line-clamp';
 
 const config: Config = {
   content: [
@@ -14,9 +14,12 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      minHeight: {
+        'page-content': 'calc(100vh - 60px)',
+      },
     },
   },
   plugins: [lineClamp],
-}
+};
 
-export default config
+export default config;
