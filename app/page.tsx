@@ -14,7 +14,7 @@ export default function Home() {
           <Link href="/journal">
             <button
               type="button"
-              className="bg-blue-900 px-6 py-3 rounded-lg text-lg sm:text-xl"
+              className="bg-blue-900 hover:bg-blue-700 px-6 py-3 rounded-lg text-lg sm:text-xl"
             >
               Get started
             </button>
