@@ -5,9 +5,7 @@ import type { JournalEntryApiGet } from '@/types/journalEntry'
 import { getUserByClerkId } from '@/utils/auth'
 import connectMongo from '@/utils/connect-mongo'
 
-const EditEntryPage: React.FC<{ params: { id: string } }> = async ({
-  params,
-}) => {
+const EditEntryPage: React.FC<{ params: { id: string } }> = async ({ params }) => {
   await connectMongo()
 
   const { _id: userId } = await getUserByClerkId()
@@ -22,12 +20,18 @@ const EditEntryPage: React.FC<{ params: { id: string } }> = async ({
     )
   }
 
+  const plainEntry: JournalEntryApiGet = {
+    ...entry,
+    _id: entry._id.toString(),
+    userId: entry.userId.toString(),
+  }
+
   return (
-    <div className="h-full w-full grid grid-cols-3">
-      <div className="col-span-2">
+    <div className="min-h-screen bg-red-400/50 p-4 sm:p-8 lg:p-12 flex justify-center items-start">
+      <div className="w-full max-w-3xl">
         <EntryAddEditForm
-          entry={entry}
-          text="Edit entry"
+          entry={plainEntry}
+          text="Edit Entry"
           action={updateEntry.bind(null, params.id)}
         />
       </div>

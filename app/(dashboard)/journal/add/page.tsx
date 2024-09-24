@@ -3,8 +3,8 @@ import EntryAddEditForm from '@/app/components/EntryAddEditForm'
 
 const AddEntryPage: React.FC = () => {
   return (
-    <div className="h-full w-full grid grid-cols-3">
-      <div className="col-span-2">
+    <div className="min-h-screen bg-red-400/50 p-4 sm:p-8 lg:p-12 flex justify-center items-start">
+      <div className="w-full max-w-3xl">
         <EntryAddEditForm action={addEntry} text="Add Post" />
       </div>
     </div>
