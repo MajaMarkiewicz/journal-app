@@ -73,7 +73,9 @@ describe('addEntry action', () => {
     vi.mocked(getUserByClerkId).mockResolvedValueOnce(null)
 
     // THEN
-    await expect(addEntry(mockFormData)).rejects.toThrowError('User.id is missing')
+    await expect(addEntry(mockFormData)).rejects.toThrowError(
+      'User.id is missing',
+    )
 
     expect(connectMongo).toHaveBeenCalled()
     expect(JournalEntry).not.toHaveBeenCalled()

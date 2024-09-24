@@ -49,7 +49,7 @@ describe('EntryAddEditForm Component', () => {
   })
 
   it('#3 Given component, when user fills the form and clicks submit, then submit form data correctly', async () => {
-    const title  = 'New Title'
+    const title = 'New Title'
     const content = 'New Content'
     const category = Category.Safety
     const additionalCategory = Category.Connection
@@ -59,7 +59,7 @@ describe('EntryAddEditForm Component', () => {
     formData.append('content', content)
     formData.append('category', category)
     formData.append('additionalCategory', additionalCategory)
-    
+
     const mockAction = vi.fn().mockResolvedValue(undefined)
 
     // GIVEN
@@ -90,7 +90,7 @@ describe('EntryAddEditForm Component', () => {
       .mockImplementation(
         () => new Promise((resolve) => setTimeout(resolve, 1000)),
       )
-    
+
     // GIVEN
     render(<EntryAddEditForm action={mockAction} text="Submit" />)
 

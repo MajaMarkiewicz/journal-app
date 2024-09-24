@@ -8,7 +8,8 @@ export default function Home() {
           Your journal
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl mb-6">
-          Improve your wellbeing by focusing on reasons to be grateful and satisfied!
+          Improve your wellbeing by focusing on reasons to be grateful and
+          satisfied!
         </p>
         <div>
           <Link href="/journal">

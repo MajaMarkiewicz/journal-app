@@ -19,8 +19,8 @@ vi.mock('@/models/User', async (importOriginal) => {
     // @ts-expect-error
     ...actual,
     default: {
-    // @ts-expect-error
-    ...actual.default,
+      // @ts-expect-error
+      ...actual.default,
       exists: vi.fn(),
       create: vi.fn(),
     },
