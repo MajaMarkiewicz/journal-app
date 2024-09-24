@@ -120,6 +120,7 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
             <select
               id="additionalCategory"
               name="additionalCategory"
+              data-testid="additional-category"
               className="border border-gray-300 rounded-lg w-full p-2 sm:p-3 md:p-4 text-base sm:text-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
               defaultValue={additionalCategory}
             >
@@ -139,6 +140,7 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
               isLoading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             type="submit"
+            data-testid="submit-button"
             disabled={isLoading}
           >
             {isLoading ? 'Saving...' : text}

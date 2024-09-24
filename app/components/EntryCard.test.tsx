@@ -22,10 +22,10 @@ describe('EntryCard Component', () => {
       screen.getByText(new Date(mockEntry.createdAt).toDateString()),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(`Main category: ${mockEntry.category}`),
+      screen.getByText(mockEntry.category),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(`Additional category: ${mockEntry.additionalCategory}`),
+      screen.getByText(`${mockEntry.additionalCategory}`),
     ).toBeInTheDocument()
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
@@ -49,9 +49,9 @@ describe('EntryCard Component', () => {
       screen.getByText(new Date(mockEntry.createdAt).toDateString()),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(`Main category: ${mockEntry.category}`),
+      screen.getByText(mockEntry.category),
     ).toBeInTheDocument()
-    expect(screen.queryByText('Additional category:')).toBeNull()
+    expect(screen.queryByTestId('additional-category')).toBeNull()
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })
