@@ -35,7 +35,7 @@ export default function RootLayout({
           </header>
 
           <main
-            className="flex-grow mt-[60px] overflow-y-auto"
+            className="flex-grow mt-[60px] overflow-y-auto bg-red-400/50"
             style={{ maxHeight: 'calc(100vh - 60px)' }}
           >
             {children}
