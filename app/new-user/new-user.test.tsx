@@ -13,49 +13,37 @@ vi.mock('@clerk/nextjs/server', () => ({
   currentUser: vi.fn(),
 }))
 
-vi.mock('@/models/User', async (importOriginal) => {
-  const actual = await importOriginal()
-  return {
-    // @ts-expect-error
-    ...actual,
-    default: {
-      // @ts-expect-error
-      ...actual.default,
-      exists: vi.fn(),
-      create: vi.fn(),
-    },
-  }
-})
-
 vi.mock('@/utils/connect-mongo', () => ({
   default: vi.fn(),
 }))
 
 describe('newUserPage', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    vi.restoreAllMocks()
   })
 
-  test('Given user logged in Clerk but not in the database, when user enters the new-user page, then user is added to the database', async () => {
+  it('Given user logged in Clerk but not in the database, when user enters the new-user page, then user is added to the database', async () => {
+    // GIVEN
     const mockUser = {
       id: 'clerk-user-id',
       emailAddresses: [{ emailAddress: 'test@example.com' }],
     }
+
     // @ts-expect-error
     currentUser.mockResolvedValue(mockUser)
     // @ts-expect-error
-    connectMongo.mockResolvedValue(true)
+    const userExistsSpy = vi.spyOn(User, 'exists').mockResolvedValue(false)
     // @ts-expect-error
-    User.exists.mockResolvedValue(false)
-    // @ts-expect-error
-    User.create.mockResolvedValue(true)
+    const userCreateSpy = vi.spyOn(User, 'create').mockResolvedValue(true)
 
+    // WHEN
     await newUserPage()
 
+    // THEN
     expect(connectMongo).toHaveBeenCalled()
     expect(currentUser).toHaveBeenCalled()
-    expect(User.exists).toHaveBeenCalledWith({ clerkId: 'clerk-user-id' })
-    expect(User.create).toHaveBeenCalledWith({
+    expect(userExistsSpy).toHaveBeenCalledWith({ clerkId: 'clerk-user-id' })
+    expect(userCreateSpy).toHaveBeenCalledWith({
       clerkId: 'clerk-user-id',
       email: 'test@example.com',
     })

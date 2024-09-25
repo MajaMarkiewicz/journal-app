@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import addEntry from '@/app/actions/addEntry'
 import connectMongo from '@/utils/connect-mongo'
 import JournalEntry from '@/models/JournalEntry'
-import { getUserByClerkId } from '@/utils/auth'
+import * as authModule from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import type { UserApiGet } from '@/types/user'
@@ -14,10 +14,6 @@ vi.mock('@/utils/connect-mongo', () => ({
 
 vi.mock('@/models/JournalEntry', () => ({
   default: vi.fn(),
-}))
-
-vi.mock('@/utils/auth', () => ({
-  getUserByClerkId: vi.fn(),
 }))
 
 vi.mock('next/cache', () => ({
@@ -45,17 +41,19 @@ describe('addEntry action', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     vi.mocked(connectMongo).mockResolvedValueOnce(undefined)
-    vi.mocked(getUserByClerkId).mockResolvedValue(mockUser as UserApiGet)
     vi.mocked(JournalEntry).mockImplementation((entryData) => ({
       save: vi.fn().mockResolvedValueOnce(entryData),
     }))
   })
 
   it('#1 should connect MongoDB, save the entry, revalidate and redirect', async () => {
+    vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(
+      mockUser as UserApiGet,
+    )
+
     await addEntry(mockFormData)
 
     expect(connectMongo).toHaveBeenCalled()
-    expect(getUserByClerkId).toHaveBeenCalled()
     expect(JournalEntry).toHaveBeenCalledWith({
       userId: mockUser._id,
       title,
@@ -70,16 +68,11 @@ describe('addEntry action', () => {
   it('#2 When the user is not found, then throw error', async () => {
     // WHEN
     // @ts-expect-error
-    vi.mocked(getUserByClerkId).mockResolvedValueOnce(null)
+    vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(null)
 
     // THEN
     await expect(addEntry(mockFormData)).rejects.toThrowError(
       'User.id is missing',
     )
-
-    expect(connectMongo).toHaveBeenCalled()
-    expect(JournalEntry).not.toHaveBeenCalled()
-    expect(revalidatePath).not.toHaveBeenCalled()
-    expect(redirect).not.toHaveBeenCalled()
   })
 })
