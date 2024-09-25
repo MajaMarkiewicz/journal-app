@@ -28,7 +28,7 @@ describe('JournalPage', () => {
         id: 'entry1',
         title: 'First Entry',
         category: Category.Gratitude,
-        description: 'I am grateful for...',
+        content: 'I am grateful for...',
       },
       {
         id: 'entry2',
@@ -48,6 +48,9 @@ describe('JournalPage', () => {
     // THEN
     expect(screen.getByText(mockedEntries[0].title)).toBeInTheDocument()
     expect(screen.getByText(mockedEntries[0].category)).toBeInTheDocument()
+    expect(
+      screen.getByText(mockedEntries[0].content as string),
+    ).toBeInTheDocument()
     expect(screen.getByText(mockedEntries[1].title)).toBeInTheDocument()
     expect(screen.getByText(mockedEntries[1].category)).toBeInTheDocument()
     expect(
