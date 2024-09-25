@@ -8,8 +8,8 @@ import JournalEntry from '@/models/JournalEntry'
 const JournalPage = async () => {
   await connectMongo()
 
-  const { _id: userId } = await getUserByClerkId()
-  const entries = await JournalEntry.find({ userId })
+  const user = await getUserByClerkId()
+  const entries = await JournalEntry.find({ userId: user._id })
 
   return (
     <div className="flex flex-col p-4">
