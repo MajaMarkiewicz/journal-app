@@ -21,9 +21,7 @@ describe('EntryCard Component', () => {
     expect(
       screen.getByText(new Date(mockEntry.createdAt).toDateString()),
     ).toBeInTheDocument()
-    expect(
-      screen.getByText(mockEntry.category),
-    ).toBeInTheDocument()
+    expect(screen.getByText(mockEntry.category)).toBeInTheDocument()
     expect(
       screen.getByText(`${mockEntry.additionalCategory}`),
     ).toBeInTheDocument()
@@ -48,9 +46,7 @@ describe('EntryCard Component', () => {
     expect(
       screen.getByText(new Date(mockEntry.createdAt).toDateString()),
     ).toBeInTheDocument()
-    expect(
-      screen.getByText(mockEntry.category),
-    ).toBeInTheDocument()
+    expect(screen.getByText(mockEntry.category)).toBeInTheDocument()
     expect(screen.queryByTestId('additional-category')).toBeNull()
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
