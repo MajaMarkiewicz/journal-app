@@ -28,7 +28,7 @@ const mockedUser: UserApiGet = {
   updatedAt: new Date(),
 }
 
-describe('updateEntry', () => {
+describe('updateEntry action', () => {
   const mockEntryId = 'entry-id'
 
   const title = 'Updated Title'

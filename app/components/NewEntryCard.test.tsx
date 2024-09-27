@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import NewEntryCard from './NewEntryCard'
 
 describe('NewEntryCard Component', () => {
-  it('Given component, then render correct text and a link redirected to journal/add', () => {
+  it('Given component, then render correct text and a link redirecting to journal/add', () => {
     // GIVEN
     render(<NewEntryCard />)
 

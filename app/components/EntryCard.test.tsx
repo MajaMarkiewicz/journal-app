@@ -4,7 +4,7 @@ import EntryCard from '@/app/components/EntryCard'
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
 
 describe('EntryCard Component', () => {
-  it('Given entry card with filled entry, then entry content correctly', () => {
+  it('Given entry card with filled entry, then entry content has date, category, additional category, title and description', () => {
     // GIVEN
     const mockEntry = {
       userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',
@@ -29,7 +29,7 @@ describe('EntryCard Component', () => {
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })
 
-  it('Given entry card with entry without additional category, then entry content correctly', () => {
+  it('Given entry card with entry without additional category, then entry content has date, category, title and description, but no additional category', () => {
     // GIVEN
     const mockEntry = {
       userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',

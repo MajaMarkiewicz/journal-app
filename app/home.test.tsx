@@ -23,7 +23,7 @@ vi.mock('next/font/google', () => ({
   Inter: () => ({ className: 'inter' }),
 }))
 
-describe('Home Tests', () => {
+describe('Home Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })

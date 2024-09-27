@@ -17,7 +17,7 @@ vi.mock('@/utils/connect-mongo', () => ({
   default: vi.fn(),
 }))
 
-describe('newUserPage', () => {
+describe('newUser Page', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
   })

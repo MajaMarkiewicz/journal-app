@@ -65,7 +65,7 @@ describe('addEntry action', () => {
     expect(redirect).toHaveBeenCalledWith('/journal')
   })
 
-  it('#2 When the user is not found, then throw error', async () => {
+  it('#2 When user is not found, then throw error', async () => {
     // WHEN
     // @ts-expect-error
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(null)

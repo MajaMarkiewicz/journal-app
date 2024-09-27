@@ -16,7 +16,7 @@ const mockedUser: UserApiGet = {
   updatedAt: new Date(),
 }
 
-describe('JournalPage', () => {
+describe('Journal Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
