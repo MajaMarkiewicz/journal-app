@@ -16,36 +16,36 @@ test('#2 Given logged in user on journal, when clicks new entry, fills the form 
   page,
 }) => {
   // GIVEN
-    // todo mock that user is logged in
+  // todo mock that user is logged in
   await page.goto('http://localhost:3000/journal')
   await expect(page.url()).toBe('http://localhost:3000/journal')
 
   // WHEN
-    // user clicks new entry
-    // user fills the form
-    // user clicks submit
+  // user clicks new entry
+  // user fills the form
+  // user clicks submit
 
   // THEN
-    // fn to save new entry in the database is run with correct data
-    // user is redirected to journal page
-    // change is visible on journal page
+  // fn to save new entry in the database is run with correct data
+  // user is redirected to journal page
+  // change is visible on journal page
 })
 
 test('#3 Given logged in user on journal page with entries, when clicks an entry, change sth in the form and clicks submit, then entry is updated in database and on journal page', async ({
   page,
 }) => {
   // GIVEN
-    // todo mock that user is logged in
-    // mock mongoDB and an entry in the database
+  // todo mock that user is logged in
+  // mock mongoDB and an entry in the database
   await page.goto('http://localhost:3000/journal')
   await expect(page.url()).toBe('http://localhost:3000/journal')
 
   // WHEN
-    // user clicks an entry
-    // user change sth in the form
-    // user clicks submit
+  // user clicks an entry
+  // user change sth in the form
+  // user clicks submit
 
   // THEN
-    // fn to update entry in the database is run with correct data
-    // change is visible on journal page
+  // fn to update entry in the database is run with correct data
+  // change is visible on journal page
 })
