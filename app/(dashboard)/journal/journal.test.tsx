@@ -56,6 +56,12 @@ describe('Journal Page', () => {
     expect(
       screen.getByText(mockedEntries[1].additionalCategory as string),
     ).toBeInTheDocument()
+    expect(
+      screen.getAllByTestId('delete-button')[0],
+    ).toBeInTheDocument()
+    expect(
+      screen.getAllByTestId('edit-button')[0],
+    ).toBeInTheDocument()
   })
 
   it('#2 When user enters journal page, then add new entry functionality is available', async () => {
@@ -70,8 +76,3 @@ describe('Journal Page', () => {
     expect(screen.getByTestId('add-entry')).toBeInTheDocument()
   })
 })
-
-// not implemented yet
-it.todo(
-  'Given user on journal page with entries, when clicks an entry, then delete button is available',
-)

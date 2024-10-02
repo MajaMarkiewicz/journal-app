@@ -51,4 +51,6 @@ describe('EntryCard Component', () => {
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })
+  it.todo('Given entry card, when click on delete button, then entry is deleted from database and page is refreshed')
+  it.todo('Given entry card, when click on edit button, then we are redirected to detail page with correct id')
 })
