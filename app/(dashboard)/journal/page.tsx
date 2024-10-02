@@ -1,15 +1,21 @@
 import EntryCard from '@/app/components/EntryCard'
 import NewEntryCard from '@/app/components/NewEntryCard'
-import Link from 'next/link'
 import { getUserByClerkId } from '@/utils/auth'
 import connectMongo from '@/utils/connect-mongo'
 import JournalEntry from '@/models/JournalEntry'
+import type { JournalEntryApiGet } from '@/types/journalEntry'
 
 const JournalPage = async () => {
   await connectMongo()
 
   const user = await getUserByClerkId()
-  const entries = await JournalEntry.find({ userId: user._id })
+  const entries = await JournalEntry.find({ userId: user._id }).lean<JournalEntryApiGet[]>()
+
+  const plainEntries = entries.map(entry => ({
+    ...entry,
+    _id: entry._id.toString(),
+    userId: entry.userId.toString(),
+  }) as JournalEntryApiGet);
 
   return (
     <div className="flex flex-col p-4">
@@ -18,8 +24,8 @@ const JournalPage = async () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         <NewEntryCard />
-        {entries.map((entry) => (
-          <EntryCard key={entry.id} entry={entry} />
+        {plainEntries.map((entry) => (
+          <EntryCard key={entry._id} entry={entry} />
         ))}
       </div>
     </div>
