@@ -12,6 +12,7 @@ export interface JournalEntryApiPost {
   category: Category
   additionalCategory?: Category
   userId: string
+  date: Date
 }
 
 export type JournalEntryApiGet = JournalEntryApiPost & {

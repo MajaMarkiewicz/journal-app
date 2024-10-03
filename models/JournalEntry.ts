@@ -10,6 +10,11 @@ const JournalEntrySchema = new Schema<
       ref: 'User',
       required: true,
     },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
     title: {
       type: String,
       required: true,
@@ -32,4 +37,5 @@ const JournalEntrySchema = new Schema<
 
 const JournalEntry =
   models.JournalEntry || model('JournalEntry', JournalEntrySchema)
+  
 export default JournalEntry

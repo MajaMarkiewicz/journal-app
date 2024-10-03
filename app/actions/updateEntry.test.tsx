@@ -35,8 +35,10 @@ describe('updateEntry action', () => {
   const description = 'Updated content'
   const category = Category.Satisfaction
   const additionalCategory = Category.Connection
+  const date = new Date().toISOString().split('T')[0]
 
   const mockFormData = new FormData()
+  mockFormData.append('date', date)
   mockFormData.append('title', title)
   mockFormData.append('content', description)
   mockFormData.append('category', category)
@@ -58,6 +60,7 @@ describe('updateEntry action', () => {
     expect(JournalEntry.findById).toHaveBeenCalledWith(mockEntryId)
     expect(JournalEntry.findByIdAndUpdate).toHaveBeenCalledWith(mockEntryId, {
       userId: mockedUser._id,
+      date: new Date(date),
       title,
       content: description,
       category,

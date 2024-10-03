@@ -18,6 +18,7 @@ async function updateEntry(entryId: string, formData: FormData) {
 
   const entryData: JournalEntryApiPost = {
     userId: user._id,
+    date: new Date(formData.get('date') as string),
     title: formData.get('title') as string,
     content: formData.get('content') as string | undefined,
     category: formData.get('category') as Category,

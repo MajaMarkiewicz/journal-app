@@ -22,6 +22,7 @@ describe('EntryAddEditForm Component', () => {
       _id: '1',
       createdAt: new Date(),
       updatedAt: new Date(),
+      date: new Date(),
       userId: 'user1',
       title: 'Test Title',
       category: Category.Gratitude,
@@ -42,6 +43,9 @@ describe('EntryAddEditForm Component', () => {
     expect(screen.getByLabelText('Additional Category')).toHaveValue(
       mockEntry.additionalCategory,
     )
+    expect(screen.getByLabelText('Date')).toHaveValue(
+      mockEntry.date.toISOString().split('T')[0],
+    )
   })
 
   it('#3 Given component, when user fills the form and clicks submit, then submit form data correctly', async () => {
@@ -49,8 +53,10 @@ describe('EntryAddEditForm Component', () => {
     const content = 'New Content'
     const category = Category.Safety
     const additionalCategory = Category.Connection
+    const date = new Date().toISOString().split('T')[0]
 
     const formData = new FormData()
+    formData.append('date', date)
     formData.append('title', title)
     formData.append('content', content)
     formData.append('category', category)
@@ -74,6 +80,10 @@ describe('EntryAddEditForm Component', () => {
       })
       fireEvent.change(screen.getByLabelText('Additional Category'), {
         target: { value: additionalCategory },
+      })
+
+      fireEvent.change(screen.getByLabelText('Date'), {
+        target: { value: date },
       })
 
       fireEvent.click(screen.getByTestId('submit-button'))

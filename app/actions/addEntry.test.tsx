@@ -31,8 +31,10 @@ describe('addEntry action', () => {
   const description = 'Test Description'
   const category = Category.Satisfaction
   const additionalCategory = Category.Connection
+  const date = new Date().toISOString().split('T')[0]
 
   const mockFormData = new FormData()
+  mockFormData.append('date', date)
   mockFormData.append('title', title)
   mockFormData.append('content', description)
   mockFormData.append('category', category)
@@ -56,6 +58,7 @@ describe('addEntry action', () => {
     expect(connectMongo).toHaveBeenCalled()
     expect(JournalEntry).toHaveBeenCalledWith({
       userId: mockUser._id,
+      date: new Date(date),
       title,
       content: description,
       category,

@@ -13,6 +13,7 @@ async function addEntry(formData: FormData): Promise<void> {
   if (!user || !user._id) throw new Error('User.id is missing')
 
   const entryData: JournalEntryApiPost = {
+    date: new Date(formData.get('date') as string),
     userId: user._id,
     title: formData.get('title') as string,
     content: formData.get('content') as string | undefined,

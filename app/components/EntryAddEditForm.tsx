@@ -14,6 +14,7 @@ const emptyEntry: JournalEntryApiGet = {
   _id: '',
   createdAt: new Date(),
   updatedAt: new Date(),
+  date: new Date(),
   userId: '',
   title: '',
   category: Category.Journal,
@@ -43,7 +44,7 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
     }
   }
 
-  const { content, title, category, additionalCategory } = entry
+  const { content, title, category, additionalCategory, date } = entry
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 sm:p-8 mx-auto overflow-auto">
@@ -51,6 +52,22 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
         {text}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        <div>
+          <label
+            htmlFor="date"
+            className="block text-sm font-medium text-gray-700 mb-1 sm:mb-2"
+          >
+            Date
+          </label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            className="border border-gray-300 rounded-lg w-full p-2 sm:p-3 md:p-4 text-base sm:text-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            defaultValue={date.toISOString().split('T')[0]}
+            required
+          />
+        </div>
         <div>
           <label
             htmlFor="title"
