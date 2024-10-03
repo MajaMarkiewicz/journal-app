@@ -16,6 +16,7 @@ vi.mock('next/navigation', () => ({
 
 const mockEntry = {
   userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',
+  date: new Date('2024-01-04T00:00:00.000Z'),
   createdAt: new Date('2024-01-01T00:00:00.000Z'),
   category: Category.Journal,
   additionalCategory: Category.Satisfaction,
@@ -35,7 +36,7 @@ describe('EntryCard Component', () => {
 
     // THEN
     expect(
-      screen.getByText(new Date(mockEntry.createdAt).toDateString()),
+      screen.getByText(new Date(mockEntry.date).toDateString()),
     ).toBeInTheDocument()
     expect(screen.getByText(mockEntry.category)).toBeInTheDocument()
     expect(
@@ -48,19 +49,15 @@ describe('EntryCard Component', () => {
   it('#2 Given entry card with entry without additional category, then entry content has date, category, title and description, but no additional category', () => {
     // GIVEN
     const mockEntryWithoutAdditionalCategory = {
-      userId: 'user_2NNEqL2nrIRdJ194ndJqAHwEfxC',
-      createdAt: new Date('2024-01-01T00:00:00.000Z'),
-      category: Category.Journal,
+      ...mockEntry,
       additionalCategory: undefined,
-      title: 'New Year Resolutions',
-      content: 'Focus on personal growth and career development.',
     } as JournalEntryApiGet
 
     render(<EntryCard entry={mockEntryWithoutAdditionalCategory} />)
 
     // THEN
     expect(
-      screen.getByText(new Date(mockEntry.createdAt).toDateString()),
+      screen.getByText(new Date(mockEntry.date).toDateString()),
     ).toBeInTheDocument()
     expect(screen.getByText(mockEntry.category)).toBeInTheDocument()
     expect(screen.queryByTestId('additional-category')).toBeNull()

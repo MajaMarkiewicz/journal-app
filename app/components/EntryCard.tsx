@@ -13,7 +13,7 @@ const categoryColors: Record<string, string> = {
 }
 
 const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
-  const date = new Date(entry.createdAt).toDateString()
+  const date = new Date(entry.date).toDateString()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
