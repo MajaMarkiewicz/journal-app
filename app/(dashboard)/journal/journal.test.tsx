@@ -23,6 +23,25 @@ const mockedUser: UserApiGet = {
   updatedAt: new Date(),
 }
 
+const mockedEntries = [
+  {
+    _id: 'entry1',
+    title: 'First Entry',
+    category: Category.Gratitude,
+    content: 'I am grateful for...',
+    userId: 'mocked-user-id',
+    date: new Date('2024-10-04T03:24:00'),
+  },
+  {
+    _id: 'entry2',
+    title: 'Second Entry',
+    category: Category.Satisfaction,
+    additionalCategory: Category.Journal,
+    userId: 'mocked-user-id',
+    date: new Date('2024-10-05T03:24:00')
+  },
+]
+
 describe('Journal Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -30,23 +49,6 @@ describe('Journal Page', () => {
 
   it('#1 Given user has entries, when user enters journal page, then entries are displayed', async () => {
     // GIVEN
-    const mockedEntries = [
-      {
-        _id: 'entry1',
-        title: 'First Entry',
-        category: Category.Gratitude,
-        content: 'I am grateful for...',
-        userId: 'mocked-user-id',
-      },
-      {
-        _id: 'entry2',
-        title: 'Second Entry',
-        category: Category.Satisfaction,
-        additionalCategory: Category.Journal,
-        userId: 'mocked-user-id',
-      },
-    ]
-
     vi.spyOn(connectMongoModule, 'default').mockResolvedValue(undefined)
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
     vi.spyOn(JournalEntry, 'find').mockReturnValue({
@@ -72,7 +74,24 @@ describe('Journal Page', () => {
     expect(screen.getAllByTestId('edit-button')[0]).toBeInTheDocument()
   })
 
-  it('#2 When user enters journal page, then add new entry functionality is available', async () => {
+  it('#2 Given user has entries with different dates, when user enters journal page, then entries are displayed sorted by newest date', async () => {
+    // GIVEN
+    vi.spyOn(connectMongoModule, 'default').mockResolvedValue(undefined)
+    vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
+    vi.spyOn(JournalEntry, 'find').mockReturnValue({
+      lean: vi.fn().mockResolvedValue(mockedEntries),
+      // biome-ignore lint/suspicious/noExplicitAny: it is a mock not a real function
+    } as any)
+
+    // WHEN
+    render(await JournalPage())
+
+    // THEN
+    expect(screen.getAllByTestId('entry-card')[0].textContent).include(mockedEntries[1].title)
+    expect(screen.getAllByTestId('entry-card')[1].textContent).include(mockedEntries[0].title)
+  })
+
+  it('#3 When user enters journal page, then add new entry functionality is available', async () => {
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
     vi.spyOn(connectMongoModule, 'default').mockResolvedValue(undefined)
     vi.spyOn(JournalEntry, 'find').mockReturnValue({
