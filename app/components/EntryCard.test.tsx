@@ -3,6 +3,13 @@ import { describe, it, expect } from 'vitest'
 import EntryCard from '@/app/components/EntryCard'
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  }),
+}))
+
 describe('EntryCard Component', () => {
   it('Given entry card with filled entry, then entry content has date, category, additional category, title and description', () => {
     // GIVEN
@@ -51,6 +58,10 @@ describe('EntryCard Component', () => {
     expect(screen.getByText(mockEntry.title)).toBeInTheDocument()
     expect(screen.getByText(mockEntry.content as string)).toBeInTheDocument()
   })
-  it.todo('Given entry card, when click on delete button, then entry is deleted from database and page is refreshed')
-  it.todo('Given entry card, when click on edit button, then we are redirected to detail page with correct id')
+  it.todo('Given entry card, when click on delete button, then entry is deleted from database and page is refreshed', () => {
+    
+  })
+  it.todo('Given entry card, when click on edit button, then we are redirected to detail page with correct id', () => {
+
+  })
 })

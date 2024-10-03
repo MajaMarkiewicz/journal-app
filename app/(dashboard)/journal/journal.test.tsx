@@ -8,6 +8,13 @@ import JournalEntry from '@/models/JournalEntry'
 import { Category } from '@/types/journalEntry'
 import type { UserApiGet } from '@/types/user'
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    refresh: vi.fn(),
+  }),
+}))
+
 const mockedUser: UserApiGet = {
   _id: 'mocked-user-id',
   clerkId: 'mocked-clerk-id',
@@ -25,22 +32,27 @@ describe('Journal Page', () => {
     // GIVEN
     const mockedEntries = [
       {
-        id: 'entry1',
+        _id: 'entry1',
         title: 'First Entry',
         category: Category.Gratitude,
         content: 'I am grateful for...',
+        userId: 'mocked-user-id',
       },
       {
-        id: 'entry2',
+        _id: 'entry2',
         title: 'Second Entry',
         category: Category.Satisfaction,
         additionalCategory: Category.Journal,
+        userId: 'mocked-user-id',
       },
     ]
 
     vi.spyOn(connectMongoModule, 'default').mockResolvedValue(undefined)
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
-    vi.spyOn(JournalEntry, 'find').mockResolvedValue(mockedEntries)
+    vi.spyOn(JournalEntry, 'find').mockReturnValue({
+      lean: vi.fn().mockResolvedValue(mockedEntries),
+      // biome-ignore lint/suspicious/noExplicitAny: it is a mock not a real function
+    } as any)
 
     // WHEN
     render(await JournalPage())
@@ -67,7 +79,10 @@ describe('Journal Page', () => {
   it('#2 When user enters journal page, then add new entry functionality is available', async () => {
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
     vi.spyOn(connectMongoModule, 'default').mockResolvedValue(undefined)
-    vi.spyOn(JournalEntry, 'find').mockResolvedValue([])
+    vi.spyOn(JournalEntry, 'find').mockReturnValue({
+      lean: vi.fn().mockResolvedValue([]),
+      // biome-ignore lint/suspicious/noExplicitAny: it is a mock not a real function
+    } as any)
 
     // WHEN
     render(await JournalPage())

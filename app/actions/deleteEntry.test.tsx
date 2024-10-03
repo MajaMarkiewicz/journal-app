@@ -4,6 +4,7 @@ import connectMongo from '@/utils/connect-mongo'
 import JournalEntry from '@/models/JournalEntry'
 import * as authModule from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
+import type { UserApiGet } from '@/types/user'
 
 vi.mock('@/utils/connect-mongo', () => ({
   default: vi.fn(),
@@ -14,7 +15,7 @@ vi.mock('next/cache', () => ({
 }))
 
 describe('deleteEntry action', () => {
-  const mockUser = { _id: 'user123' }
+  const mockUser = { _id: 'user123' } as UserApiGet
   const mockEntryId = 'entry123'
 
   beforeEach(() => {
@@ -38,6 +39,7 @@ describe('deleteEntry action', () => {
   })
 
   it('#2 When user is not found, then throw an error', async () => {
+    // @ts-expect-error
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(null)
 
     await expect(deleteEntry(mockEntryId)).rejects.toThrow('User.id is missing')
