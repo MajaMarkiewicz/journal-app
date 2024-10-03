@@ -4,8 +4,8 @@ import EntryCard from '@/app/components/EntryCard'
 import { Category, type JournalEntryApiGet } from '@/types/journalEntry'
 import * as deleteEntryModule from '@/app/actions/deleteEntry'
 
-const pushMock = vi.fn();
-const refreshMock = vi.fn();
+const pushMock = vi.fn()
+const refreshMock = vi.fn()
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -69,7 +69,9 @@ describe('EntryCard Component', () => {
   })
 
   it('#3 Given entry card, when click on delete button, then entry is deleted from database', async () => {
-    const deleteEntrySpy = vi.spyOn(deleteEntryModule, 'default').mockImplementation(async () => Promise.resolve())
+    const deleteEntrySpy = vi
+      .spyOn(deleteEntryModule, 'default')
+      .mockImplementation(async () => Promise.resolve())
 
     // GIVEN
     render(<EntryCard entry={mockEntry} />)

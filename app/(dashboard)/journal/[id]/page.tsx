@@ -33,7 +33,7 @@ const EditEntryPage: React.FC<{ params: { id: string } }> = async ({
       <div className="w-full max-w-3xl">
         <EntryAddEditForm
           entry={plainEntry}
-          text="Edit Entry"
+          text="Done"
           action={updateEntry.bind(null, params.id)}
         />
       </div>

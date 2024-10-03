@@ -21,7 +21,9 @@ describe('deleteEntry action', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     vi.mocked(connectMongo).mockResolvedValue(undefined)
-    vi.spyOn(JournalEntry, 'findOneAndDelete').mockResolvedValue({ _id: mockEntryId })
+    vi.spyOn(JournalEntry, 'findOneAndDelete').mockResolvedValue({
+      _id: mockEntryId,
+    })
   })
 
   it('#1 Should connect to MongoDB, delete the entry, and revalidate the path', async () => {

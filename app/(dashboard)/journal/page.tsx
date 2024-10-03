@@ -9,13 +9,18 @@ const JournalPage = async () => {
   await connectMongo()
 
   const user = await getUserByClerkId()
-  const entries = await JournalEntry.find({ userId: user._id }).lean<JournalEntryApiGet[]>()
+  const entries = await JournalEntry.find({ userId: user._id }).lean<
+    JournalEntryApiGet[]
+  >()
 
-  const plainEntries = entries.map(entry => ({
-    ...entry,
-    _id: entry._id.toString(),
-    userId: entry.userId.toString(),
-  }) as JournalEntryApiGet);
+  const plainEntries = entries.map(
+    (entry) =>
+      ({
+        ...entry,
+        _id: entry._id.toString(),
+        userId: entry.userId.toString(),
+      }) as JournalEntryApiGet,
+  )
 
   return (
     <div className="flex flex-col p-4">

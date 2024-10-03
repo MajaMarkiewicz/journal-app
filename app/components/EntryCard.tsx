@@ -22,7 +22,7 @@ const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
   }
 
   return (
-    <div 
+    <div
       className="flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow-lg h-full cursor-pointer"
       onClick={handleCardClick}
       onKeyDown={(e) => {
