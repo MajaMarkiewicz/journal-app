@@ -25,6 +25,12 @@ const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
     <div 
       className="flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow-lg h-full cursor-pointer"
       onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          handleCardClick()
+        }
+      }}
     >
       <div className="flex justify-between items-center px-4 py-2 text-sm text-gray-500 h-12">
         <div className="flex flex-col">
