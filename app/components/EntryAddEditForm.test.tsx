@@ -32,11 +32,7 @@ describe('EntryAddEditForm Component', () => {
 
     // GIVEN
     render(
-      <EntryAddEditForm
-        entry={mockEntry}
-        action={mockAction}
-        text="Edit Entry"
-      />,
+      <EntryAddEditForm entry={mockEntry} action={mockAction} text="Done" />,
     )
 
     // THEN

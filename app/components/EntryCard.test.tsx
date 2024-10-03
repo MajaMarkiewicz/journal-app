@@ -84,7 +84,7 @@ describe('EntryCard Component', () => {
     expect(deleteEntrySpy).toHaveBeenCalledWith(mockEntry._id)
   })
 
-  it('$4 Given entry card, when click on edit button, then we are redirected to detail page with correct id', async () => {
+  it('#4 Given entry card, when click on edit button, then we are redirected to detail page with correct id', async () => {
     // GIVEN
     render(<EntryCard entry={mockEntry} />)
 
@@ -94,5 +94,30 @@ describe('EntryCard Component', () => {
 
     // THEN
     expect(pushMock).toHaveBeenCalledWith(`/journal/${mockEntry._id}`)
+  })
+
+  describe('Should have background color based on the category', () => {
+    const categories = [
+      { category: Category.Gratitude, expectedClass: 'bg-orange-200' },
+      { category: Category.Satisfaction, expectedClass: 'bg-yellow-200' },
+      { category: Category.Safety, expectedClass: 'bg-green-200' },
+      { category: Category.Connection, expectedClass: 'bg-pink-200' },
+      { category: Category.Journal, expectedClass: 'bg-gray-200' },
+    ]
+
+    for (const { category, expectedClass } of categories) {
+      it(`Given entry card with category ${category}, then card has correct background color`, () => {
+        const categoryEntry = {
+          ...mockEntry,
+          category,
+        } as JournalEntryApiGet
+
+        render(<EntryCard entry={categoryEntry} />)
+
+        const card = screen.getByText(categoryEntry.title).closest('div')
+
+        expect(card).toHaveClass(expectedClass)
+      })
+    }
   })
 })

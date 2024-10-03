@@ -4,6 +4,14 @@ import deleteEntry from '@/app/actions/deleteEntry'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 
+const categoryColors: Record<string, string> = {
+  Gratitude: 'bg-orange-200',
+  Satisfaction: 'bg-yellow-200',
+  Safety: 'bg-green-200',
+  Connection: 'bg-pink-200',
+  Journal: 'bg-gray-200',
+}
+
 const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
   const date = new Date(entry.createdAt).toDateString()
   const router = useRouter()
@@ -21,9 +29,11 @@ const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
     router.push(`/journal/${entry._id}`)
   }
 
+  const bgColor = categoryColors[entry.category] || 'bg-white'
+
   return (
     <div
-      className="flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow-lg h-full cursor-pointer"
+      className={`flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg shadow-lg h-full cursor-pointer ${bgColor}`}
       onClick={handleCardClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -43,7 +53,7 @@ const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
         </div>
         <div className="flex-shrink-0">{date}</div>
       </div>
-      <strong className="px-4 py-2 block text-lg text-blue-900">
+      <strong className="px-4 py-2 block text-lg text-blue-900 truncate">
         {entry.title}
       </strong>
       <div className="px-4 py-2 text-gray-600 flex-grow flex">
