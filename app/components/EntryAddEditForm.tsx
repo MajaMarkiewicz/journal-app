@@ -20,6 +20,7 @@ const emptyEntry: JournalEntryApiGet = {
   category: Category.Journal,
   content: '',
   additionalCategory: undefined,
+  importantEvent: false,
 }
 
 const EntryAddEditForm: React.FC<PropertyFormProps> = ({
@@ -44,7 +45,8 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
     }
   }
 
-  const { content, title, category, additionalCategory, date } = entry
+  const { content, title, category, additionalCategory, date, importantEvent } =
+    entry
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 sm:p-8 mx-auto overflow-auto">
@@ -149,6 +151,22 @@ const EntryAddEditForm: React.FC<PropertyFormProps> = ({
               <option value="Journal">Journal</option>
             </select>
           </div>
+        </div>
+        <div className="flex items-center">
+          <input
+            data-testid="important"
+            type="checkbox"
+            id="importantEvent"
+            name="importantEvent"
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+            defaultChecked={importantEvent}
+          />
+          <label
+            htmlFor="importantEvent"
+            className="ml-2 block text-sm font-medium text-gray-700"
+          >
+            Mark as Important Event
+          </label>
         </div>
 
         <div>

@@ -30,10 +30,12 @@ const EntryCard: React.FC<{ entry: JournalEntryApiGet }> = ({ entry }) => {
   }
 
   const bgColor = categoryColors[entry.category] || 'bg-white'
+  const borderColor = entry.importantEvent ? 'border-red-500 border-4' : ''
 
   return (
     <div
-      className={`flex flex-col divide-y divide-gray-200 overflow-hidden rounded-lg shadow-lg h-full cursor-pointer ${bgColor}`}
+      data-testid="entry-card"
+      className={`flex flex-col divide-y divide-gray-400 overflow-hidden rounded-lg shadow-lg p-2 h-full cursor-pointer ${bgColor} ${borderColor}`}
       onClick={handleCardClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {

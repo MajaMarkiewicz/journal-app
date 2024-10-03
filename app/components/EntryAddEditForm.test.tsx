@@ -15,6 +15,7 @@ describe('EntryAddEditForm Component', () => {
     expect(screen.getByLabelText('Description')).toHaveValue('')
     expect(screen.getByLabelText('Category')).toHaveValue(Category.Journal)
     expect(screen.getByLabelText('Additional Category')).toHaveValue('')
+    expect(screen.getByTestId('important')).not.toBeChecked()
   })
 
   it('#2 Given component with entry, then render form with provided values', () => {
@@ -28,6 +29,7 @@ describe('EntryAddEditForm Component', () => {
       category: Category.Gratitude,
       additionalCategory: Category.Connection,
       content: 'Test Content',
+      importantEvent: true,
     }
     const mockAction = vi.fn()
 
@@ -46,6 +48,7 @@ describe('EntryAddEditForm Component', () => {
     expect(screen.getByLabelText('Date')).toHaveValue(
       mockEntry.date.toISOString().split('T')[0],
     )
+    expect(screen.getByTestId('important')).toBeChecked()
   })
 
   it('#3 Given component, when user fills the form and clicks submit, then submit form data correctly', async () => {

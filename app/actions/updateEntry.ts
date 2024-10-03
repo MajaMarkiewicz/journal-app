@@ -25,6 +25,7 @@ async function updateEntry(entryId: string, formData: FormData) {
     additionalCategory: formData.get('additionalCategory')
       ? (formData.get('additionalCategory') as Category)
       : undefined,
+    importantEvent: formData.get('importantEvent') === 'on',
   }
 
   await JournalEntry.findByIdAndUpdate(entryId, entryData)

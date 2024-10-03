@@ -36,6 +36,7 @@ describe('updateEntry action', () => {
   const category = Category.Satisfaction
   const additionalCategory = Category.Connection
   const date = new Date().toISOString().split('T')[0]
+  const importantEvent = 'on'
 
   const mockFormData = new FormData()
   mockFormData.append('date', date)
@@ -43,6 +44,7 @@ describe('updateEntry action', () => {
   mockFormData.append('content', description)
   mockFormData.append('category', category)
   mockFormData.append('additionalCategory', additionalCategory)
+  mockFormData.append('importantEvent', importantEvent)
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -65,6 +67,7 @@ describe('updateEntry action', () => {
       content: description,
       category,
       additionalCategory,
+      importantEvent: true,
     })
     expect(revalidatePath).toHaveBeenCalledWith('/')
     expect(redirect).toHaveBeenCalledWith('/journal')

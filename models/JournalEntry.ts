@@ -31,11 +31,15 @@ const JournalEntrySchema = new Schema<
       required: false,
       default: undefined,
     },
+    importantEvent: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 )
 
 const JournalEntry =
   models.JournalEntry || model('JournalEntry', JournalEntrySchema)
-  
+
 export default JournalEntry

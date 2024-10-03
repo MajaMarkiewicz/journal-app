@@ -23,6 +23,7 @@ const mockEntry = {
   title: 'New Year Resolutions',
   content: 'Focus on personal growth and career development.',
   _id: 'entry_3',
+  importantEvent: false,
 } as JournalEntryApiGet
 
 describe('EntryCard Component', () => {
@@ -93,7 +94,30 @@ describe('EntryCard Component', () => {
     expect(pushMock).toHaveBeenCalledWith(`/journal/${mockEntry._id}`)
   })
 
-  describe('Should have background color based on the category', () => {
+  it('#5 Given entry card mark as important, then card has red border', async () => {
+    const mockImportantEntry = {
+      ...mockEntry,
+      importantEvent: true,
+    } as JournalEntryApiGet
+
+    // GIVEN
+    render(<EntryCard entry={mockImportantEntry} />)
+
+    // THEN
+    const card = screen.getByTestId('entry-card')
+    expect(card).toHaveClass('border-red-500 border-4')
+  })
+
+  it('#6 Given entry card not mark as important, then card has no border', async () => {
+    // GIVEN
+    render(<EntryCard entry={mockEntry} />)
+
+    // THEN
+    const card = screen.getByTestId('entry-card')
+    expect(card).not.toHaveClass('border-red-500')
+  })
+
+  describe('#7 Should have background color based on the category', () => {
     const categories = [
       { category: Category.Gratitude, expectedClass: 'bg-orange-200' },
       { category: Category.Satisfaction, expectedClass: 'bg-yellow-200' },
@@ -109,10 +133,11 @@ describe('EntryCard Component', () => {
           category,
         } as JournalEntryApiGet
 
+        // GIVEN
         render(<EntryCard entry={categoryEntry} />)
 
-        const card = screen.getByText(categoryEntry.title).closest('div')
-
+        // THEN
+        const card = screen.getByTestId('entry-card')
         expect(card).toHaveClass(expectedClass)
       })
     }

@@ -21,6 +21,7 @@ async function addEntry(formData: FormData): Promise<void> {
     additionalCategory: formData.get('additionalCategory')
       ? (formData.get('additionalCategory') as Category)
       : undefined,
+    importantEvent: formData.get('importantEvent') === 'on',
   }
 
   const newEntry = new JournalEntry(entryData)
