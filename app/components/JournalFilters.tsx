@@ -14,6 +14,8 @@ const JournalFilters: React.FC = () => {
     importantEvent: false,
   })
 
+  const [isVisible, setIsVisible] = useState(true)
+
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -64,97 +66,109 @@ const JournalFilters: React.FC = () => {
 
   return (
     <div className="mb-8">
-      <h3 className="text-2xl font-semibold mb-6 text-blue-800">
-        Filter Entries
-      </h3>
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-end"
-      >
-        <div data-testid="start-date-filter" className="flex flex-col">
-          <label className="block mb-2 text-lg font-medium text-gray-700">
-            Start Date:
-          </label>
-          <input
-            type="date"
-            name="startDate"
-            value={filters.startDate}
-            onChange={handleFilterChange}
-            className="w-full p-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500"
-          />
-        </div>
-
-        <div data-testid="end-date-filter" className="flex flex-col">
-          <label className="block mb-2 text-lg font-medium text-gray-700">
-            End Date:
-          </label>
-          <input
-            type="date"
-            name="endDate"
-            value={filters.endDate}
-            onChange={handleFilterChange}
-            className="w-full p-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500"
-          />
-        </div>
-
-        <div data-testid="category-filter" className="col-span-1 flex flex-col">
-          <label
-            htmlFor="category-select"
-            className="block mb-2 text-lg font-medium text-gray-700"
-          >
-            Categories:
-          </label>
-          <Select
-            isMulti
-            inputId="category-select"
-            name="categories"
-            options={Object.values(Category).map((category) => ({
-              value: category,
-              label: category,
-            }))}
-            value={filters.categories.map((cat) => ({
-              value: cat,
-              label: cat,
-            }))}
-            onChange={handleCategoryChange}
-            className="w-full shadow-sm border-gray-300 rounded-md focus:ring-blue-500"
-          />
-        </div>
-
-        <div
-          className="flex items-center col-span-1"
-          data-testid="important-filter"
+      <div className="flex mb-4">
+        <h3 className="text-2xl font-semibold text-blue-800">
+          Filter Entries
+        </h3>
+        <button
+          type="button"
+          onClick={() => setIsVisible((prev) => !prev)}
+          className="border border-blue-600 text-lg text-blue-600 hover:text-blue-800 hover:border-blue-800 rounded px-2 ml-4"
+          aria-label="Toggle Filters"
         >
-          <label className="flex items-center text-lg font-medium">
+          {isVisible ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+      {isVisible && (
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-end"
+        >
+          <div data-testid="start-date-filter" className="flex flex-col">
+            <label className="block mb-2 text-lg font-medium text-gray-700">
+              Start Date:
+            </label>
             <input
-              type="checkbox"
-              name="importantEvent"
-              checked={filters.importantEvent}
+              type="date"
+              name="startDate"
+              value={filters.startDate}
               onChange={handleFilterChange}
-              className="mr-2 h-9 w-9 focus:ring-blue-500"
+              className="w-full p-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500"
             />
-            Important Event
-          </label>
-        </div>
+          </div>
 
-        <div className="col-span-2 flex justify-between space-x-4">
-          <button
-            type="submit"
-            className="w-full p-2 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
-            data-testid="filters-button"
+          <div data-testid="end-date-filter" className="flex flex-col">
+            <label className="block mb-2 text-lg font-medium text-gray-700">
+              End Date:
+            </label>
+            <input
+              type="date"
+              name="endDate"
+              value={filters.endDate}
+              onChange={handleFilterChange}
+              className="w-full p-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500"
+            />
+          </div>
+
+          <div data-testid="category-filter" className="col-span-1 flex flex-col">
+            <label
+              htmlFor="category-select"
+              className="block mb-2 text-lg font-medium text-gray-700"
+            >
+              Categories:
+            </label>
+            <Select
+              isMulti
+              inputId="category-select"
+              name="categories"
+              options={Object.values(Category).map((category) => ({
+                value: category,
+                label: category,
+              }))}
+              value={filters.categories.map((cat) => ({
+                value: cat,
+                label: cat,
+              }))}
+              onChange={handleCategoryChange}
+              className="w-full shadow-sm border-gray-300 rounded-md focus:ring-blue-500"
+            />
+          </div>
+
+          <div
+            className="flex items-center col-span-1"
+            data-testid="important-filter"
           >
-            Apply Filters
-          </button>
-          <button
-            type="button"
-            className="w-full p-2 bg-gray-400 text-white rounded-lg shadow-sm hover:bg-gray-500 focus:ring-2 focus:ring-gray-400"
-            data-testid="reset-filters"
-            onClick={resetFilters}
-          >
-            Reset Filters
-          </button>
-        </div>
-      </form>
+            <label className="flex items-center text-lg font-medium">
+              <input
+                type="checkbox"
+                name="importantEvent"
+                checked={filters.importantEvent}
+                onChange={handleFilterChange}
+                className="mr-2 h-9 w-9 focus:ring-blue-500"
+              />
+              Important Event
+            </label>
+          </div>
+
+          <div className="col-span-2 flex justify-between space-x-4">
+            <button
+              type="submit"
+              className="w-full p-2 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+              data-testid="filters-button"
+            >
+              Apply Filters
+            </button>
+            <button
+              type="button"
+              className="w-full p-2 bg-gray-400 text-white rounded-lg shadow-sm hover:bg-gray-500 focus:ring-2 focus:ring-gray-400"
+              data-testid="reset-filters"
+              onClick={resetFilters}
+            >
+              Reset Filters
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   )
 }
