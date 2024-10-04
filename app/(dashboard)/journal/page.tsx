@@ -19,7 +19,6 @@ const JournalPage = async ({
   searchParams: FilterParams
 }) => {
   await connectMongo()
-
   const user = await getUserByClerkId()
 
   const query: any = {
@@ -33,11 +32,9 @@ const JournalPage = async ({
     query.date = { ...query.date, $lte: new Date(searchParams.endDate) }
   }
   if (searchParams.category) {
-    if (Array.isArray(searchParams.category)) {
-      query.category = { $in: searchParams.category }
-    } else {
-      query.category = searchParams.category
-    }
+    query.category = Array.isArray(searchParams.category)
+      ? { $in: searchParams.category }
+      : searchParams.category
   }
   if (searchParams.importantEvent) {
     query.importantEvent = true
@@ -45,27 +42,51 @@ const JournalPage = async ({
 
   const entries = await JournalEntry.find(query).lean<JournalEntryApiGet[]>()
 
-  const plainEntries = entries.map(
-    (entry) =>
-      ({
-        ...entry,
-        _id: entry._id.toString(),
-        userId: entry.userId.toString(),
-      }) as JournalEntryApiGet,
-  )
+  const plainEntries = entries.map((entry) => ({
+    ...entry,
+    _id: entry._id.toString(),
+    userId: entry.userId.toString(),
+  }))
 
   return (
-    <div className="flex flex-col p-4">
-      <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900 text-center">
+    <div className="flex flex-col p-6 space-y-8">
+      <h2 className="text-4xl font-bold mb-8 text-blue-900 text-center">
         Your Wellbeing Journal
       </h2>
-      {Object.keys(searchParams).length > 0 && (
-        <h3 data-testid="filters-applied-info">
-          Filters Applied: {JSON.stringify(searchParams)}
-        </h3>
-      )}
 
       <JournalFilters />
+
+      {Object.keys(searchParams).length > 0 && (
+        <h3
+          data-testid="filters-applied-info"
+          className="text-center bg-gray-100 text-blue-800 px-4 py-2 rounded-md shadow-sm space-y-1 flex flex-col lg:flex-row items-center justify-center"
+        >
+          <strong>Filters Applied:</strong>
+          {searchParams.category && (
+            <div className="ml-2 bg-blue-200 px-3 py-1 rounded-full">
+              Category:{' '}
+              {Array.isArray(searchParams.category)
+                ? searchParams.category.join(', ')
+                : searchParams.category}
+            </div>
+          )}
+          {searchParams.startDate && (
+            <div className="ml-2 bg-blue-200 px-3 py-1 rounded-full">
+              Start Date: {searchParams.startDate}
+            </div>
+          )}
+          {searchParams.endDate && (
+            <div className="ml-2 bg-blue-200 px-3 py-1 rounded-full">
+              End Date: {searchParams.endDate}
+            </div>
+          )}
+          {searchParams.importantEvent && (
+            <div className="ml-2 bg-blue-200 px-3 py-1 rounded-full">
+              Important Events
+            </div>
+          )}
+        </h3>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         <NewEntryCard />
