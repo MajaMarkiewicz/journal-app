@@ -67,9 +67,7 @@ const JournalFilters: React.FC = () => {
   return (
     <div className="mb-8">
       <div className="flex mb-4">
-        <h3 className="text-2xl font-semibold text-blue-800">
-          Filter Entries
-        </h3>
+        <h3 className="text-2xl font-semibold text-blue-800">Filter Entries</h3>
         <button
           type="button"
           onClick={() => setIsVisible((prev) => !prev)}
@@ -110,7 +108,10 @@ const JournalFilters: React.FC = () => {
             />
           </div>
 
-          <div data-testid="category-filter" className="col-span-1 flex flex-col">
+          <div
+            data-testid="category-filter"
+            className="col-span-1 flex flex-col"
+          >
             <label
               htmlFor="category-select"
               className="block mb-2 text-lg font-medium text-gray-700"
@@ -135,7 +136,7 @@ const JournalFilters: React.FC = () => {
           </div>
 
           <div
-            className="flex items-center col-span-1"
+            className="flex items-center col-span-1 pb-1"
             data-testid="important-filter"
           >
             <label className="flex items-center text-lg font-medium">
@@ -144,7 +145,7 @@ const JournalFilters: React.FC = () => {
                 name="importantEvent"
                 checked={filters.importantEvent}
                 onChange={handleFilterChange}
-                className="mr-2 h-9 w-9 focus:ring-blue-500"
+                className="mr-2 h-7 w-7 focus:ring-blue-500"
               />
               Important Event
             </label>

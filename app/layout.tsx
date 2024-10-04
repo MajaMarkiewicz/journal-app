@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="min-h-screen flex flex-col overflow-hidden">
+        <body className="min-h-screen flex flex-col">
           <header className="h-[60px] w-full bg-gray-50 border-b border-black/10 shadow-md fixed top-0 left-0 z-10">
             <div className="h-full w-full px-6 flex items-center justify-end">
               <SignedOut>
