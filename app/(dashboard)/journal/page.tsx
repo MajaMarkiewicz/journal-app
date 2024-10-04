@@ -59,6 +59,11 @@ const JournalPage = async ({
       <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900 text-center">
         Your Wellbeing Journal
       </h2>
+      {Object.keys(searchParams).length > 0 && (
+        <h3 data-testid="filters-applied-info">
+          Filters Applied: {JSON.stringify(searchParams)}
+        </h3>
+      )}
 
       <JournalFilters />
 

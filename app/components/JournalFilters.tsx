@@ -52,6 +52,16 @@ const JournalFilters: React.FC = () => {
     router.push(`?${query.toString()}`)
   }
 
+  const resetFilters = () => {
+    setFilters({
+      startDate: '',
+      endDate: '',
+      categories: [] as Category[],
+      importantEvent: false,
+    })
+    router.push('?')
+  }
+
   return (
     <div className="mb-8">
       <h3 className="text-xl font-semibold mb-4">Filter Entries</h3>
@@ -120,6 +130,14 @@ const JournalFilters: React.FC = () => {
           data-testid="filters-button"
         >
           Apply Filters
+        </button>
+        <button
+          type="button"
+          className="p-2 bg-gray-400 text-white rounded-md"
+          data-testid="reset-filters"
+          onClick={resetFilters}
+        >
+          Reset filters
         </button>
       </form>
     </div>

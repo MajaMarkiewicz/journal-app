@@ -58,7 +58,7 @@ describe('Journal Page', () => {
     vi.spyOn(authModule, 'getUserByClerkId').mockResolvedValue(mockedUser)
   })
 
-  it('#1 Given user has entries, when user enters journal page and no filters are applied, then all entries are displayed', async () => {
+  it('#1 Given user has entries, when user enters journal page and no filters are applied, then all entries are displayed and info about filters applied is not shown', async () => {
     // GIVEN
     vi.spyOn(JournalEntry, 'find').mockReturnValue({
       lean: vi.fn().mockResolvedValue(mockedEntries),
@@ -78,6 +78,7 @@ describe('Journal Page', () => {
     )
     expect(screen.getAllByTestId('delete-button')[0]).toBeInTheDocument()
     expect(screen.getAllByTestId('edit-button')[0]).toBeInTheDocument()
+    expect(screen.queryByTestId('filters-applied-info')).not.toBeInTheDocument()
   })
 
   it('#2 Given user has entries with different dates, when user enters journal page, then entries are displayed sorted by newest date', async () => {
@@ -121,7 +122,7 @@ describe('Journal Page', () => {
       } as any)
     })
 
-    it('#4 When user enters journal page, then category, date and important event filters are available', async () => {
+    it('#4 When user enters journal page, then category, date and important event filters are available, and there is applied and reset filter button', async () => {
       // WHEN
       const searchParams = {}
       render(await JournalPage({ searchParams }))
@@ -131,6 +132,8 @@ describe('Journal Page', () => {
       expect(screen.getByTestId('end-date-filter')).toBeInTheDocument()
       expect(screen.getByTestId('category-filter')).toBeInTheDocument()
       expect(screen.getByTestId('important-filter')).toBeInTheDocument()
+      expect(screen.getByTestId('filters-button')).toBeInTheDocument()
+      expect(screen.getByTestId('reset-filters')).toBeInTheDocument()
     })
     const filterScenarios = [
       {
@@ -149,41 +152,9 @@ describe('Journal Page', () => {
         },
         routerPushArgs: '?startDate=2024-10-01&endDate=2024-10-04',
       },
-      // {
-      //   description: {
-      //     no: '6',
-      //     name: 'start date',
-      //     result: 'events from the selected date',
-      //   },
-      //   searchParams: { startDate: '2024-10-01' },
-      //   expectedQuery: {
-      //     userId: mockedUser._id,
-      //     date: expect.objectContaining({
-      //       $gte: new Date('2024-10-01'),
-      //       $lte: new Date('2024-10-01'),
-      //     }),
-      //   },
-      //   routerPushArgs: '?startDate=2024-10-01',
-      // },
-      // {
-      //   description: {
-      //     no: '7',
-      //     name: 'end date',
-      //     result: 'events from the selected date',
-      //   },
-      //   searchParams: { endDate: '2024-10-04' },
-      //   expectedQuery: {
-      //     userId: mockedUser._id,
-      //     date: expect.objectContaining({
-      //       $gte: new Date('2024-10-04'),
-      //       $lte: new Date('2024-10-04'),
-      //     }),
-      //   },
-      //   routerPushArgs: '?endDate=2024-10-04',
-      // },
       {
         description: {
-          no: '8',
+          no: '6',
           name: 'category',
           result: 'event from the category',
         },
@@ -196,7 +167,7 @@ describe('Journal Page', () => {
       },
       {
         description: {
-          no: '9',
+          no: '7',
           name: 'important events',
           result: 'important events',
         },
@@ -209,7 +180,7 @@ describe('Journal Page', () => {
       },
       {
         description: {
-          no: '10',
+          no: '8',
           name: 'important events and categories',
           result: 'important entries from that categories',
         },
@@ -227,7 +198,7 @@ describe('Journal Page', () => {
     ]
 
     for (const scenario of filterScenarios) {
-      it(`#${scenario.description.no} When user enters journal page, and choose ${scenario.description.name} to be filtered, then only ${scenario.description.result} are displayed, information about the filter applied is visible, option to reset filters is available`, async () => {
+      it(`#${scenario.description.no} When user enters journal page, and choose ${scenario.description.name} to be filtered, then only ${scenario.description.result} are displayed and information about the filter applied is visible`, async () => {
         const journalFindSpy = vi.spyOn(JournalEntry, 'find')
 
         render(await JournalPage({ searchParams: {} }))
@@ -308,8 +279,9 @@ describe('Journal Page', () => {
           )
         })
 
-        // expect(screen.getByTestId('filters-applied-info')).toBeInTheDocument();
-        // expect(screen.getByTestId('reset-filters')).toBeInTheDocument();
+        expect(
+          screen.getAllByTestId('filters-applied-info')[0],
+        ).toBeInTheDocument()
       })
     }
   })
