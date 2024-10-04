@@ -64,7 +64,9 @@ const JournalFilters: React.FC = () => {
 
   return (
     <div className="mb-8">
-      <h3 className="text-2xl font-semibold mb-6 text-blue-800">Filter Entries</h3>
+      <h3 className="text-2xl font-semibold mb-6 text-blue-800">
+        Filter Entries
+      </h3>
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-end"
@@ -96,7 +98,10 @@ const JournalFilters: React.FC = () => {
         </div>
 
         <div data-testid="category-filter" className="col-span-1 flex flex-col">
-          <label htmlFor="category-select" className="block mb-2 text-lg font-medium text-gray-700">
+          <label
+            htmlFor="category-select"
+            className="block mb-2 text-lg font-medium text-gray-700"
+          >
             Categories:
           </label>
           <Select
@@ -116,20 +121,22 @@ const JournalFilters: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center col-span-1" data-testid="important-filter">
-          <label className="flex items-center">
+        <div
+          className="flex items-center col-span-1"
+          data-testid="important-filter"
+        >
+          <label className="flex items-center text-lg font-medium">
             <input
               type="checkbox"
               name="importantEvent"
               checked={filters.importantEvent}
               onChange={handleFilterChange}
-              className="mr-2 h-5 w-5 focus:ring-blue-500"
+              className="mr-2 h-9 w-9 focus:ring-blue-500"
             />
-            <span className="text-lg font-medium">Important Event</span>
+            Important Event
           </label>
         </div>
 
-        {/* Buttons */}
         <div className="col-span-2 flex justify-between space-x-4">
           <button
             type="submit"
